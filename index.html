@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vikram Reddy Modiyam — Senior Software Developer</title>
+<meta name="description" content="Vikram Reddy Modiyam — Senior Software Developer building distributed, cloud-native systems and AI-assisted tooling on top of decades-old infrastructure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07090D;
+    --bg-soft:#0D1119;
+    --panel:#11151F;
+    --line:#22283A;
+    --ink:#EDEFF5;
+    --ink-soft:#9098AC;
+    --amber:#E8A33D;
+    --teal:#33D6C0;
+    --violet:#8C7CF0;
+    --sans:'Space Grotesk', -apple-system, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important;}
+  }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.6; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+  ::selection{background:var(--amber); color:#0B0E14;}
+
+  /* ---------------- nav ---------------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 28px; backdrop-filter:blur(10px);
+    background:rgba(7,9,13,0.65); border-bottom:1px solid var(--line);
+  }
+  .brand{ font-family:var(--mono); font-size:14px; letter-spacing:.04em; color:var(--ink);}
+  .brand span{color:var(--amber);}
+  .navlinks{display:flex; gap:26px; font-family:var(--mono); font-size:12.5px; letter-spacing:.05em;}
+  .navlinks a{ text-decoration:none; color:var(--ink-soft); transition:color .2s ease;}
+  .navlinks a:hover{color:var(--teal);}
+  @media (max-width:640px){ .navlinks{display:none;} }
+
+  /* ---------------- hero / three.js canvas ---------------- */
+  .hero{
+    position:relative; min-height:100vh; display:flex; align-items:center;
+    padding-top:80px; overflow:hidden;
+  }
+  #scene{
+    position:absolute; inset:0; z-index:0;
+    opacity:.85;
+  }
+  .hero-inner{ position:relative; z-index:2; }
+  .hero::after{
+    content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(60% 55% at 30% 40%, rgba(7,9,13,0) 0%, rgba(7,9,13,0.55) 65%, rgba(7,9,13,0.95) 100%);
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--teal); display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--teal); display:inline-block;}
+  h1.name{
+    font-size:clamp(40px,7vw,74px); font-weight:700; line-height:1.02; letter-spacing:-0.02em;
+    margin:0 0 18px; max-width:14ch;
+  }
+  h1.name .grad{
+    background:linear-gradient(100deg, var(--teal), var(--violet) 60%, var(--amber));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .lede{ font-size:clamp(16px,2vw,19px); color:var(--ink-soft); max-width:56ch; margin:0 0 34px;}
+  .lede strong{color:var(--ink); font-weight:600;}
+  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13.5px; padding:13px 22px; border-radius:2px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .2s ease;
+    border:1px solid var(--line);
+  }
+  .btn.primary{ background:var(--ink); color:#0B0E14; border-color:var(--ink); }
+  .btn.primary:hover{ background:var(--teal); border-color:var(--teal); }
+  .btn.ghost{ color:var(--ink); }
+  .btn.ghost:hover{ border-color:var(--teal); color:var(--teal); }
+
+  .scroll-hint{
+    position:absolute; bottom:34px; left:28px; z-index:2;
+    font-family:var(--mono); font-size:11px; color:var(--ink-soft);
+    display:flex; align-items:center; gap:10px;
+  }
+  .scroll-hint .line{ width:1px; height:34px; background:linear-gradient(var(--ink-soft), transparent); }
+
+  /* ---------------- section shell ---------------- */
+  section{ padding:110px 0; position:relative; }
+  .eyebrow.sec{ margin-bottom:16px; }
+  h2.h{ font-size:clamp(28px,4vw,40px); font-weight:600; margin:0 0 44px; max-width:20ch; letter-spacing:-0.01em;}
+  h2.h .soft{ color:var(--ink-soft); font-weight:400; }
+
+  /* ---------------- about ---------------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  @media (max-width:760px){ .about-grid{grid-template-columns:1fr; gap:30px;} }
+  .about-grid p{ color:var(--ink-soft); font-size:16px; margin:0 0 16px;}
+  .about-grid strong{ color:var(--ink); font-weight:600;}
+  .stat-list{ display:flex; flex-direction:column; gap:22px; }
+  .stat{ border-top:1px solid var(--line); padding-top:14px;}
+  .stat .num{ font-family:var(--mono); font-size:26px; color:var(--teal); display:block; margin-bottom:4px;}
+  .stat .lbl{ font-size:13.5px; color:var(--ink-soft); }
+
+  /* ---------------- project / systems cards ---------------- */
+  .cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  @media (max-width:760px){ .cards{grid-template-columns:1fr;} }
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px;
+    padding:28px; position:relative; overflow:hidden; transition:border-color .25s ease, transform .25s ease;
+  }
+  .card:hover{ border-color:var(--teal); transform:translateY(-3px); }
+  .card .idx{ font-family:var(--mono); font-size:12px; color:var(--amber); margin-bottom:14px; display:block;}
+  .card h3{ font-size:19px; margin:0 0 10px; font-weight:600;}
+  .card p{ font-size:14.5px; color:var(--ink-soft); margin:0 0 16px;}
+  .card .tags{ display:flex; flex-wrap:wrap; gap:7px;}
+  .card .tags span{
+    font-family:var(--mono); font-size:11.5px; padding:4px 9px; border:1px solid var(--line);
+    border-radius:2px; color:var(--ink-soft);
+  }
+
+  /* ---------------- timeline ---------------- */
+  .timeline{ display:flex; flex-direction:column; }
+  .trow{
+    display:grid; grid-template-columns:150px 1fr; gap:24px; padding:26px 0;
+    border-top:1px solid var(--line);
+  }
+  .trow:last-child{ border-bottom:1px solid var(--line); }
+  @media (max-width:640px){ .trow{grid-template-columns:1fr; gap:8px;} }
+  .trow .when{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); padding-top:3px;}
+  .trow .when .badge{
+    display:inline-block; margin-top:8px; font-size:10.5px; padding:3px 8px; border-radius:2px;
+    background:rgba(51,214,192,0.12); color:var(--teal); font-family:var(--mono);
+  }
+  .trow .role{ font-size:18px; font-weight:600; margin:0 0 3px;}
+  .trow .org{ font-size:14px; color:var(--ink-soft); margin:0 0 12px;}
+  .trow p.desc{ font-size:14.5px; color:var(--ink-soft); margin:0; max-width:64ch;}
+
+  /* ---------------- skills ---------------- */
+  .skill-cloud{ display:flex; flex-wrap:wrap; gap:10px; }
+  .skill-cloud span{
+    font-family:var(--mono); font-size:13.5px; padding:8px 14px; border:1px solid var(--line);
+    border-radius:20px; color:var(--ink-soft); transition:all .2s ease;
+  }
+  .skill-cloud span.hl{ color:var(--ink); border-color:var(--teal); background:rgba(51,214,192,0.08);}
+  .skill-cloud span:hover{ border-color:var(--amber); color:var(--ink); }
+
+  /* ---------------- credentials ---------------- */
+  .cred-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  @media (max-width:640px){ .cred-grid{grid-template-columns:1fr;} }
+  .cred{
+    border:1px solid var(--line); border-radius:6px; padding:18px 20px; background:var(--panel);
+    display:flex; gap:14px; align-items:flex-start;
+  }
+  .cred .mark{ color:var(--amber); font-family:var(--mono); font-size:16px; line-height:1.4;}
+  .cred .body b{ display:block; font-size:14.5px; margin-bottom:3px;}
+  .cred .body span{ font-size:13px; color:var(--ink-soft);}
+
+  /* ---------------- footer ---------------- */
+  footer{ padding:110px 0 70px; text-align:center; border-top:1px solid var(--line); }
+  footer h2{ font-size:clamp(28px,5vw,46px); margin:0 0 26px; letter-spacing:-0.01em;}
+  .fine{ margin-top:44px; font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">VRM<span>.</span>dev</div>
+  <div class="navlinks">
+    <a href="#work">Work</a>
+    <a href="#experience">Experience</a>
+    <a href="#stack">Stack</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="scene"></canvas>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Senior Software Developer · Alpharetta, GA</div>
+    <h1 class="name">Systems that turn <span class="grad">legacy into leverage</span></h1>
+    <p class="lede">
+      I build <strong>distributed, cloud-native systems</strong> on AWS and rebuild the decades-old infrastructure underneath them —
+      pairing Java/Python engineering with <strong>custom LLM agents</strong> that cut research time on legacy code from days to minutes.
+    </p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#work">See the work ↓</a>
+      <a class="btn ghost" href="mailto:modiyam.vikram@gmail.com">Get in touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span class="line"></span>SCROLL</div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="eyebrow sec">Selected Work</div>
+    <h2 class="h">A few systems worth pointing at</h2>
+    <div class="cards">
+      <div class="card">
+        <span class="idx">01</span>
+        <h3>Mainframe research agent</h3>
+        <p>A custom MCP that lets engineers query legacy COBOL and JSP systems in plain language instead of reading decades-old source line by line — recognized internally for cutting SME research time significantly.</p>
+        <div class="tags"><span>MCP</span><span>LLM Agents</span><span>COBOL</span><span>Confluence</span></div>
+      </div>
+      <div class="card">
+        <span class="idx">02</span>
+        <h3>Late-filing modernization</h3>
+        <p>Rebuilding a legacy late-filing system as event-driven microservices — ECS and Lambda compute, Kafka and SQS for messaging, OpenSearch powering the UI grid, all provisioned through Terraform.</p>
+        <div class="tags"><span>Java</span><span>AWS</span><span>Kafka</span><span>Terraform</span></div>
+      </div>
+      <div class="card">
+        <span class="idx">03</span>
+        <h3>ETL failure autopilot</h3>
+        <p>Automated recovery for recurring Ab Initio batch failures on a high-volume banking pipeline, cutting manual intervention and keeping client SLAs green during production incidents.</p>
+        <div class="tags"><span>Ab Initio</span><span>Unix</span><span>ServiceNow</span></div>
+      </div>
+      <div class="card">
+        <span class="idx">04</span>
+        <h3>Cloud archive migration</h3>
+        <p>Led migration of physical-server archive data to AWS S3 as application SME, scripting the transfer end-to-end and validating integrity across the full dataset.</p>
+        <div class="tags"><span>AWS S3</span><span>Unix Scripting</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow sec">About</div>
+      <h2 class="h" style="margin-bottom:22px;">From <span class="soft">production support</span> to <span class="soft">system design</span></h2>
+      <p>I started my career keeping other people's systems alive — monitoring ETL batches, chasing P1/P2 incidents, and learning exactly how enterprise software breaks under real load.</p>
+      <p>That's now the foundation for what I build: <strong>microservice architectures</strong> that don't just replace legacy systems but understand why they were built that way in the first place — accelerated by <strong>LLM tooling</strong> I build myself.</p>
+    </div>
+    <div class="stat-list">
+      <div class="stat"><span class="num">4+ yrs</span><span class="lbl">enterprise Java/Python development &amp; production support</span></div>
+      <div class="stat"><span class="num">80%</span><span class="lbl">minimum test coverage enforced on current builds (JUnit, Mockito)</span></div>
+      <div class="stat"><span class="num">2</span><span class="lbl">industries — BFSI &amp; HR/payroll (ADP) — supported at production scale</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow sec">Experience</div>
+    <h2 class="h">Where the work happened</h2>
+    <div class="timeline">
+      <div class="trow">
+        <div class="when">Nov 2024 — Present<span class="badge">Current</span></div>
+        <div>
+          <div class="role">Senior Software Developer</div>
+          <div class="org">Infer Solutions, Inc. — Client: ADP, Alpharetta, GA</div>
+          <p class="desc">Own architecture and code review for a legacy-to-microservices modernization; build MCPs and LLM agents that speed up legacy research; run a Jenkins pipeline into scheduled production releases within a pod-based team.</p>
+        </div>
+      </div>
+      <div class="trow">
+        <div class="when">Mar 2023 — Nov 2024</div>
+        <div>
+          <div class="role">Software Developer</div>
+          <div class="org">Infer Solutions, Inc. — Internal Projects, Princeton, NJ</div>
+          <p class="desc">Built internal applications in Python and AWS, integrating systems via RESTful APIs and delivering workflow tools on Appian.</p>
+        </div>
+      </div>
+      <div class="trow">
+        <div class="when">Sep 2022 — Jan 2023</div>
+        <div>
+          <div class="role">Java Production Support</div>
+          <div class="org">Digital Banking, American Express</div>
+          <p class="desc">Managed onsite/offshore incident and change processes for a digital banking platform; ran cross-track P1/P2 support and SaaS subscription debugging under ITIL standards.</p>
+        </div>
+      </div>
+      <div class="trow">
+        <div class="when">Feb 2020 — Sep 2022</div>
+        <div>
+          <div class="role">Senior Support Engineer</div>
+          <div class="org">Tata Consultancy Services — Client: CBA, Bangalore, India</div>
+          <p class="desc">Ran Ab Initio ETL operations and P2 incident response for a major Australian bank; led the SME migration of archive data to AWS S3 and automated recurring batch failures.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="eyebrow sec">Stack</div>
+    <h2 class="h">Tools I reach for</h2>
+    <div class="skill-cloud">
+      <span class="hl">Java</span><span class="hl">Python</span><span>Spring 3.x/4.x</span><span>Angular</span><span>React</span>
+      <span class="hl">AWS</span><span>ECS</span><span>Lambda</span><span>Terraform</span><span>Docker</span><span>Airflow</span><span>Jenkins</span><span>Kafka</span><span>SQS</span><span>OpenSearch</span>
+      <span>PostgreSQL</span><span>Oracle DB</span><span>MS Access</span>
+      <span>Splunk</span><span>Postman</span><span>Jira</span><span>Bitbucket</span><span>ServiceNow</span>
+      <span class="hl">Custom MCPs</span><span class="hl">LLM Agents</span><span>GitHub Copilot</span><span>kiro-cli</span>
+    </div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="wrap">
+    <div class="eyebrow sec">Credentials</div>
+    <h2 class="h">Certifications &amp; recognition</h2>
+    <div class="cred-grid">
+      <div class="cred"><span class="mark">◆</span><div class="body"><b>Python Certification</b><span>Python Institute</span></div></div>
+      <div class="cred"><span class="mark">◆</span><div class="body"><b>Java, Python &amp; Automation Testing</b><span>ABC Technologies, Bangalore</span></div></div>
+      <div class="cred"><span class="mark">★</span><div class="body"><b>Mainframe MCP recognition</b><span>Appreciation for reducing SME research time</span></div></div>
+      <div class="cred"><span class="mark">★</span><div class="body"><b>Multiple On-the-Spot Awards</b><span>CBA Project Management, for critical report fixes</span></div></div>
+      <div class="cred"><span class="mark">★</span><div class="body"><b>Client Appreciation</b><span>For automation reducing manual work</span></div></div>
+      <div class="cred"><span class="mark">◆</span><div class="body"><b>B.E., Electrical &amp; Electronics Engineering</b><span>Sathyabama Institute of Science and Technology, 2019</span></div></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="eyebrow sec" style="justify-content:center;">Contact</div>
+    <h2>Let's build something that outlasts the next migration.</h2>
+    <div class="hero-cta" style="justify-content:center;">
+      <a class="btn primary" href="mailto:modiyam.vikram@gmail.com">modiyam.vikram@gmail.com</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/vikram-reddy-modiyam" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div class="fine">Alpharetta, GA · +1 470-939-2933</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  var canvas = document.getElementById('scene');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (typeof THREE === 'undefined') return;
+
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  var hero = document.querySelector('.hero');
+
+  function size(){
+    var w = hero.clientWidth, h = hero.clientHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+  camera.position.set(0, 0, 9);
+
+  // Node network: points + connecting lines, evoking distributed microservices
+  var NODE_COUNT = 70;
+  var positions = new Float32Array(NODE_COUNT * 3);
+  var velocities = [];
+  var spread = 7;
+  for (var i = 0; i < NODE_COUNT; i++){
+    var x = (Math.random()-0.5)*spread*2;
+    var y = (Math.random()-0.5)*spread*1.2;
+    var z = (Math.random()-0.5)*spread*1.4;
+    positions[i*3]=x; positions[i*3+1]=y; positions[i*3+2]=z;
+    velocities.push(new THREE.Vector3((Math.random()-0.5)*0.0025,(Math.random()-0.5)*0.0025,(Math.random()-0.5)*0.0025));
+  }
+  var geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  var mat = new THREE.PointsMaterial({ color: 0x33D6C0, size: 0.055, transparent:true, opacity:0.85 });
+  var points = new THREE.Points(geo, mat);
+  scene.add(points);
+
+  // line connections, rebuilt each frame based on proximity
+  var lineGeo = new THREE.BufferGeometry();
+  var maxLines = NODE_COUNT * 6;
+  var linePositions = new Float32Array(maxLines * 2 * 3);
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+  var lineMat = new THREE.LineBasicMaterial({ color: 0x8C7CF0, transparent:true, opacity:0.18 });
+  var lines = new THREE.LineSegments(lineGeo, lineMat);
+  scene.add(lines);
+
+  var group = new THREE.Group();
+  group.add(points); group.add(lines);
+  scene.add(group);
+
+  var linkDist = 2.6;
+
+  function updateLines(){
+    var idx = 0;
+    var posAttr = geo.attributes.position.array;
+    for (var i=0; i<NODE_COUNT && idx < maxLines; i++){
+      for (var j=i+1; j<NODE_COUNT && idx < maxLines; j++){
+        var dx = posAttr[i*3]-posAttr[j*3];
+        var dy = posAttr[i*3+1]-posAttr[j*3+1];
+        var dz = posAttr[i*3+2]-posAttr[j*3+2];
+        var d = Math.sqrt(dx*dx+dy*dy+dz*dz);
+        if (d < linkDist){
+          linePositions[idx*6]=posAttr[i*3]; linePositions[idx*6+1]=posAttr[i*3+1]; linePositions[idx*6+2]=posAttr[i*3+2];
+          linePositions[idx*6+3]=posAttr[j*3]; linePositions[idx*6+4]=posAttr[j*3+1]; linePositions[idx*6+5]=posAttr[j*3+2];
+          idx++;
+        }
+      }
+    }
+    lineGeo.setDrawRange(0, idx*2);
+    lineGeo.attributes.position.needsUpdate = true;
+  }
+
+  var mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', function(e){
+    mouseX = (e.clientX / window.innerWidth - 0.5);
+    mouseY = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  function animate(){
+    if (!reduceMotion){
+      var posAttr = geo.attributes.position.array;
+      for (var i=0;i<NODE_COUNT;i++){
+        posAttr[i*3]   += velocities[i].x;
+        posAttr[i*3+1] += velocities[i].y;
+        posAttr[i*3+2] += velocities[i].z;
+        if (Math.abs(posAttr[i*3])>spread) velocities[i].x*=-1;
+        if (Math.abs(posAttr[i*3+1])>spread*0.7) velocities[i].y*=-1;
+        if (Math.abs(posAttr[i*3+2])>spread*0.8) velocities[i].z*=-1;
+      }
+      geo.attributes.position.needsUpdate = true;
+      updateLines();
+      group.rotation.y += 0.0006;
+      camera.position.x += (mouseX*1.4 - camera.position.x) * 0.02;
+      camera.position.y += (-mouseY*1.0 - camera.position.y) * 0.02;
+      camera.lookAt(0,0,0);
+    }
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+
+  size();
+  window.addEventListener('resize', size);
+  updateLines();
+  animate();
+})();
+
+// scroll-reveal for cards / timeline rows
+(function(){
+  var els = document.querySelectorAll('.card, .trow, .cred');
+  els.forEach(function(el){ el.style.opacity = 0; el.style.transform = 'translateY(14px)'; el.style.transition='opacity .6s ease, transform .6s ease'; });
+  if (!('IntersectionObserver' in window)){
+    els.forEach(function(el){ el.style.opacity=1; el.style.transform='none'; });
+    return;
+  }
+  var io = new IntersectionObserver(function(items){
+    items.forEach(function(item){
+      if (item.isIntersecting){
+        item.target.style.opacity = 1;
+        item.target.style.transform = 'none';
+        io.unobserve(item.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
